@@ -1,0 +1,20 @@
+javascript:(function() {
+  let selectedText = window.getSelection().toString().trim();
+  if (selectedText === "") {
+    alert("Please select a word first.");
+    return;
+  }
+
+  let apiKey = "YOUR_API_KEY";
+  let apiUrl = `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${selectedText}?key=${apiKey}`;
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      let definition = data[0].shortdef[0];
+      alert(`${selectedText}: ${definition}`);
+    })
+    .catch(error => {
+      alert(`Error: ${error.message}`);
+    });
+})();
